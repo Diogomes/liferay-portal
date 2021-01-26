@@ -6,12 +6,23 @@ definition {
 	property testray.main.component.name = "Web Content Administration";
 
 	setUp {
-		TestCase.setUpPortalInstance();
 
-		User.firstLoginPG();
+        TestCase.setUpPortalInstance();
+        User.firstLoginPG();
+        Navigator.openURL();
+     
+        
+      	ProductMenu.gotoPortlet(
+		category = "Content & Data",
+		portlet = "Web Content"); 
 
-		JSONGroup.addGroup(groupName = "Test Site Name");
-	}
+        AppBuilderAdmin.switchTab(tabName = "Structures");  
+
+        WebContentStructures.addCP(
+		structureName = "Test");
+
+        
+    }
 
 	tearDown {
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
@@ -29,6 +40,8 @@ definition {
 	@priority = "5"
 	test AddSeparatorOnFormByDragAndDrop {
 		property portal.acceptance = "false";
+
+		DataEngine.addField(fieldName = "Separator", fieldFieldLabel = "Test");
 
 		// TODO LPS-98081 AddSeparatorOnFormByDragAndDrop pending implementation
 

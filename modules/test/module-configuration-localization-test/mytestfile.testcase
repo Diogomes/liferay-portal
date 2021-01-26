@@ -1,0 +1,44 @@
+@@component-name = "app-builder"
+definition {
+    property testray.main.component.name = "App Builder";
+    setUp {
+        TestCase.setUpPortalInstance();
+        User.firstLoginPG();
+        Navigator.openURL();
+    }
+    tearDown {
+        User.logoutAndLoginPG(
+            userLoginEmailAddress = "test@liferay.com",
+            userLoginFullName = "Test Test");
+    }
+    test ValidateConfigurationStringAtControlPanel {
+        ProductMenuHelper.openProductMenu();
+        ProductMenu.gotoPortlet(
+            category = "Content &amp; Data",
+            portlet = "Web Content");
+            property portal.acceptance = "quarantine";
+        property portal.upstream = "quarantine";
+        ManagementBar.clickAddMenuItem(menuItem = "Basic Web Content");
+        WebContent.addCP(
+            webContentContent = "test1",
+            webContentTitle = "test2");
+            AssertClick(
+                locator1 = "Button#PUBLISH",
+                value1 = "Publish");
+                Pause(locator1 = "5000");
+        WebContentDisplayPortletNavigator.gotoAdd(portletNameScoped = "${portletNameScoped}");
+
+        WebContent.addCP(
+            webContentContent = "${webContentContent}",
+            webContentTitle = "${webContentTitle}");
+
+        if (isSet(templateName)) {
+            if (IsTextNotEqual(locator1 = "WCEditWebContent#SELECTED_TEMPLATE", value1 = "${templateName}")) {
+                WebContent.selectTemplateCP(
+                    structureName = "Basic Web Content",
+                    templateName = "${templateName}");
+                    value1 = "Publish");
+            }
+        }
+    }
+}
