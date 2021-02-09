@@ -704,7 +704,36 @@ definition {
 
 		Click(locator1 = "Sidebar#BACK");
 	}
+	macro editFieldSetRepeatable {
+		if (isSet(fieldsetLabel)) {
+			Click(
+				key_fieldsetLabel = "${fieldsetLabel}",
+				locator1 = "DDMEditStructure#FORM_FIELD_SETS_CONTAINER_LABEL");
+		}
+		else if (isSet(fieldsGroupLabel)) {
+			Click(
+				key_fieldFieldLabel = "${fieldsGroupLabel}",
+				locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL");
 
+		}
+
+		if (IsElementNotPresent(locator1 = "NavTab#ACTIVE_TAB_LINK", key_tab = "Basic")) {
+			Navigator.gotoNavTab(navTab = "Basic");
+		}
+
+		if ("${repeatable}" == "true") {
+			Check.checkToggleSwitch(
+				checkboxName = "Repeatable",
+				locator1 = "Checkbox#ANY_CHECKBOX");
+		}
+		else if ("${repeatable}" == "false") {
+			Uncheck.uncheckToggleSwitch(
+				checkboxName = "Repeatable",
+				locator1 = "Checkbox#ANY_CHECKBOX_CHECKED");
+		}
+
+		Click(locator1 = "Sidebar#BACK");
+	}
 	macro editFieldHide {
 		var checkboxName = "Show Label";
 		var fieldLabel = "${fieldLabel}";

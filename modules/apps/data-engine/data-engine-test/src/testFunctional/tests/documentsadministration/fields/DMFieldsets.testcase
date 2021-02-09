@@ -30,17 +30,123 @@ definition {
 	test AddFieldsetOnOtherFieldsetAlreadyOnBuilder {
 		property portal.acceptance = "false";
 
+		
+		
+
 		// TODO LPS-107630 AddFieldsetOnOtherFieldsetAlreadyOnBuilder pending implementation
 
 	}
 
 	@description = "This is a test for LPS-107630. As an App Adm, I want to use an existing fieldset"
-	@ignore = "true"
 	@priority = "4"
 	test EditFieldsetPropertiesFromSideBar {
 		property portal.acceptance = "false";
 
-		// TODO LPS-107630 EditFieldsetPropertiesFromSideBar pending implementation
+		var documentName = "New Document";
+		var fieldSetName = "New Document Type";
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMNavigator.gotoDocumentType();
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "${documentName}");
+
+		DataEngine.addFieldsets(
+            createNewFieldset = "true",
+            fieldNameList = "Text",
+            fieldsetLabel = "${fieldSetName}",
+            fieldsetName = "AddFieldset");
+
+		DataEngine.editCollapsible(
+		 	fieldsetLabel = "${fieldSetName}",
+		 	collapsible = "true");
+			
+		DDLDataDefinition.save();
+		
+		DMNavigator.gotoDocumentType();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+
+		Click(locator1 = "DDMEditStructure#FORM_FIELD_SETS_CONTAINER_COLLAPSIBLE_UP");
+		AssertNotVisible(
+		 	key_fieldFieldLabel = "Text",
+		 	locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL");
+		  
+		DDLDataDefinition.save();
+
+		DMNavigator.gotoDocumentType();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit"); 
+
+		DataEngine.editCollapsible(
+			fieldsetLabel = "${fieldSetName}",
+		 	collapsible = "false");
+		
+		DDLDataDefinition.save();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+
+		AssertVisible(
+			key_fieldFieldLabel = "Text",
+			locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL");
+
+		DDLDataDefinition.save();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+	
+		DataEngine.editFieldSetRepeatable(
+		 	fieldsetLabel = "${fieldSetName}",
+		  	repeatable = "true");
+
+		DDLDataDefinition.save();
+		
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+	
+		AssertElementPresent(
+			fieldsetLabel = "${fieldSetName}",
+			locator1 = "FormFields#FIELD_ADD_DUPLICATE");
+		  
+		DataEngine.editFieldSetRepeatable(
+		 	fieldsetLabel = "${fieldSetName}",
+		  	repeatable = "false");
+
+		DDLDataDefinition.save();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+	
+		AssertElementNotPresent(
+			fieldsetLabel = "${fieldSetName}",
+			locator1 = "FormFields#FIELD_ADD_DUPLICATE");
+
+		DDLDataDefinition.save();
+
+		LexiconEntry.openEntryMenu(rowEntry = "${documentName}");
+
+		MenuItem.clickNoError(menuItem = "Edit");
+	
+		DataEngine.editShowOrHideLabel(
+		fieldsetLabel = "${fieldSetName}",
+		showLabel = "false");
+		 	
+		DDLDataDefinition.save();
+
+		AssertElementNotPresent(
+			fieldsetLabel = "${fieldSetName}",
+			locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL");	
 	}
 
 	@description = "This is a test for LPS-107630. As an App Adm, I want to use an existing fieldset"
