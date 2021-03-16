@@ -9,7 +9,7 @@ definition {
 	setUp {
 		TestCase.setUpPortalInstance();
 
-		 User.firstLoginPG();
+		User.firstLoginPG();
 
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
@@ -34,6 +34,29 @@ definition {
 
 			User.logoutPG();
 		}
+	}
+
+	test CreateAndUpdateNewCurrency {
+		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Currencies");
+		ClickNoError(
+			key_entryName = "US Dollar",
+			locator1 = "CommerceNavigation#ENTRY_NAME");
+		Type(
+			locator1 = "CommerceEntry#PRIORITY_FIELD",
+			value1 = "1");
+		Button.clickSave();
+		AssertElementPresent(locator1 = "CommerceEntry#FIRST_CURRENCY_ELEMENT");
+		ClickNoError(
+			key_entryName = "US Dollar",
+			locator1 = "CommerceNavigation#ENTRY_NAME");
+		Type(
+			locator1 = "CommerceEntry#PRIORITY_FIELD",
+			value1 = "12");
+		Button.clickSave();
+		AssertElementPresent(locator1 = "CommerceEntry#LAST_CURRENCY_ELEMENT");
 	}
 
 	test EditOrder {
@@ -195,28 +218,6 @@ definition {
 			productSKU = "MIN93015",
 			productTotalPrice = "100.00");
 	}
-	test CreateAndUpdateNewCurrency { 
-		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
-		CommerceNavigator.gotoPortlet(
-			category = "Store Management",
-			portlet = "Currencies");
-		ClickNoError(
-			key_entryName = "US Dollar",
-			locator1 = "CommerceNavigation#ENTRY_NAME");
-		Type(
-			locator1 = "CommerceEntry#PRIORITY_FIELD",
-			value1 = "1");
-		Button.clickSave();
-		AssertElementPresent(locator1 = "CommerceEntry#FIRST_CURRENCY_ELEMENT");
-		ClickNoError(
-			key_entryName = "US Dollar",
-			locator1 = "CommerceNavigation#ENTRY_NAME");
-		Type(
-			locator1 = "CommerceEntry#PRIORITY_FIELD",
-			value1 = "12");
-		Button.clickSave();
-		AssertElementPresent(locator1 = "CommerceEntry#LAST_CURRENCY_ELEMENT");
-	}
 
 	@description = "This is a test for COMMERCE-5980. As an order manager, I want to edit the payment method and payment status of a submitted order"
 	@ignore = "true"
@@ -293,8 +294,9 @@ definition {
 	@ignore = "true"
 	@priority = "3"
 	test SubscriptionNotifications {
-    	property portal.acceptance = "false";
-    	// TODO COMMERCE-5841 SubscriptionNotifications Pending Implementation
+		property portal.acceptance = "false";
+
+		// TODO COMMERCE-5841 SubscriptionNotifications Pending Implementation
 	}
 
 }
