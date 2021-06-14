@@ -9,7 +9,7 @@ definition {
 	setUp {
 		TestCase.setUpPortalInstance();
 
-		User.firstLoginPG();
+		User.firstLoginUI();
 	}
 
 	tearDown {
@@ -279,14 +279,50 @@ definition {
 	}
 
 	@description = "Verify that a Numeric Field can be previewed"
-	@ignore = "Test Stub"
 	@priority = "5"
 	test NumericFieldCanBePreviewed {
 		property forms.functional = "true";
 		property portal.acceptance = "false";
 
-		// TODO LPS-133788 NumericFieldCanBePreviewed pending implementation
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Forms");
 
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName(formName = "Form 1");
+
+		Form.gotoAddField(
+			fieldPositionNumber = "0",
+			fieldType = "Numeric");
+
+		FormFields.editHelpText(
+			fieldHelpText = "Test Help Text",
+			fieldName = "tip");
+
+		FormFields.setPlaceholder(fieldValue = "Help Placeholder Test");
+
+		FormsAdminNavigator.gotoPreviewForm();
+
+		Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+
+		FormFields.viewFieldLabel(
+			fieldName = "Numeric",
+			fieldValue = "");
+
+		FormFields.viewFieldHelpText(
+			fieldHelpText = "Test Help Text",
+			fieldName = "Numeric");
+
+		Form.viewFormPlaceholderText(fieldPlaceholderText = "Help Placeholder Test");
+
+		FormFields.editText(
+			fieldName = "Numeric",
+			fieldValue = "123");
+
+		FormFields.viewTextValue(
+			fieldName = "Numeric",
+			fieldValue = "123");
 	}
 
 	@description = "Verify that a Paragraph Field can be previewed"
