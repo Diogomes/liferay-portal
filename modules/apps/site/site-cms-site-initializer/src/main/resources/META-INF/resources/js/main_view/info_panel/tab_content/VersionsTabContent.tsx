@@ -15,8 +15,7 @@ import {
 	IAssetTypeInfoPanelContext,
 } from '../context';
 import VersionService from '../services/VersionService';
-
-const MAX_LIST_SIZE = 10;
+import {MAX_LIST_SIZE} from '../util/constants';
 
 const VersionsTabContent = () => {
 	const {actions, asset, dataSetId}: IAssetTypeInfoPanelContext = useContext(

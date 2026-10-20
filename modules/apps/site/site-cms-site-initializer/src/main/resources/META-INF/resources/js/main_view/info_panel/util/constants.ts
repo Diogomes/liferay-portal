@@ -21,6 +21,7 @@ export const L_CMS_CONTENT_STRUCTURES = 'L_CMS_CONTENT_STRUCTURES';
 export const L_CMS_FILE_TYPES = 'L_CMS_FILE_TYPES';
 export const L_CONTENTS = 'L_CONTENTS';
 export const L_FILES = 'L_FILES';
+export const MAX_LIST_SIZE = 10;
 export const RESTORE = 'restore';
 
 export const VIEW_CONTENT_VERSION_URL = `${Liferay.ThemeDisplay.getPortalURL()}${Liferay.ThemeDisplay.getPathMain()}/cms`;
