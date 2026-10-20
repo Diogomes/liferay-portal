@@ -144,7 +144,7 @@ describe('CMS Asset Type Info Panel', () => {
 
 		expect(screen.queryByRole('img')).not.toBeInTheDocument();
 
-		expect(screen.getAllByRole('tab')).toHaveLength(6);
+		expect(screen.getAllByRole('tab')).toHaveLength(7);
 
 		expect(screen.getByRole('tab', {name: 'details'})).toBeInTheDocument();
 		expect(
@@ -154,6 +154,7 @@ describe('CMS Asset Type Info Panel', () => {
 			screen.getByRole('tab', {name: 'performance'})
 		).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'versions'})).toBeInTheDocument();
+		expect(screen.getByRole('tab', {name: 'usages'})).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'comments'})).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'projects'})).toBeInTheDocument();
 
@@ -235,7 +236,7 @@ describe('CMS Asset Type Info Panel', () => {
 			DOCUMENT_OBJECT_ENTRY.embedded.file.thumbnailURL
 		);
 
-		expect(screen.getAllByRole('tab')).toHaveLength(6);
+		expect(screen.getAllByRole('tab')).toHaveLength(7);
 
 		expect(screen.getByRole('tab', {name: 'details'})).toBeInTheDocument();
 		expect(
@@ -245,6 +246,7 @@ describe('CMS Asset Type Info Panel', () => {
 			screen.getByRole('tab', {name: 'performance'})
 		).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'versions'})).toBeInTheDocument();
+		expect(screen.getByRole('tab', {name: 'usages'})).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'comments'})).toBeInTheDocument();
 		expect(screen.getByRole('tab', {name: 'projects'})).toBeInTheDocument();
 
