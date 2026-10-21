@@ -21,6 +21,7 @@ const AssetTypeInfoPanelFilesView = () => {
 		TABS.CATEGORIZATION,
 		TABS.PERFORMANCE,
 		...(actions?.versions?.href ? [TABS.VERSIONS] : []),
+		TABS.USAGES,
 		TABS.COMMENTS,
 		...(cmpEnabled ? [TABS.PROJECTS] : []),
 	];

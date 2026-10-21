@@ -27,6 +27,7 @@ import CommentsTabContent from './CommentsTabContent';
 import DetailsTabContent from './DetailsTabContent';
 import PerformanceTabContent from './PerformanceTabContent';
 import ProjectsTabContent from './ProjectsTabContent';
+import UsagesTabContent from './UsagesTabContent';
 import VersionsTabContent from './VersionsTabContent';
 
 export const TABS = {
@@ -59,6 +60,12 @@ export const TABS = {
 		icon: 'archive',
 		id: 'projects',
 		name: Liferay.Language.get('projects'),
+	},
+	USAGES: {
+		component: UsagesTabContent,
+		icon: 'copy',
+		id: 'usages',
+		name: Liferay.Language.get('usages'),
 	},
 	VERSIONS: {
 		component: VersionsTabContent,
