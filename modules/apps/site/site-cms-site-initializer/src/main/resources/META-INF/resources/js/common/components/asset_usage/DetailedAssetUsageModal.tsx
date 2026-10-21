@@ -4,22 +4,18 @@
  */
 
 import ClayAlert from '@clayui/alert';
-import {ClayButtonWithIcon} from '@clayui/button';
 import {Text} from '@clayui/core';
-import ClayIcon from '@clayui/icon';
-import ClayLink from '@clayui/link';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import ClayModal from '@clayui/modal';
 import {ClayTooltipProvider} from '@clayui/tooltip';
 import {
 	EConfigInURLBehavior,
 	FrontendDataSet,
-	replaceTokens,
 } from '@liferay/frontend-data-set-web';
 import {sub} from 'frontend-js-web';
 import React, {useEffect, useRef, useState} from 'react';
 
-import {openCMSModal} from '../../../common/utils/openCMSModal';
+import AssetUsageViewButton from './AssetUsageViewButton';
 import {BulkActionItem} from './types';
 
 import '../../../../css/components/AssetUsageModals.scss';
@@ -27,53 +23,6 @@ import '../../../../css/components/AssetUsageModals.scss';
 interface IDetailedAssetUsageModalProps {
 	item: BulkActionItem;
 }
-
-const ViewButton = ({
-	item,
-	itemData,
-}: {
-	item: BulkActionItem;
-	itemData: {type: string; url?: string};
-}) => {
-	if (!itemData.url) {
-		return null;
-	}
-
-	if (itemData.url.includes('objectEntryId')) {
-		return (
-			<ClayButtonWithIcon
-				aria-label={Liferay.Language.get('view-asset')}
-				borderless
-				data-testid="view-asset-button"
-				displayType="secondary"
-				onClick={() => {
-					openCMSModal({
-						size: 'full-screen',
-						title: item.name,
-						url: replaceTokens(itemData.url as string, item.name),
-					});
-				}}
-				symbol="view"
-				title={Liferay.Language.get('view-asset')}
-			/>
-		);
-	}
-
-	return (
-		<ClayLink
-			aria-label={Liferay.Language.get('view-page')}
-			borderless
-			button
-			data-testid="view-page-link"
-			displayType="secondary"
-			href={itemData.url}
-			target="_blank"
-			title={Liferay.Language.get('view-page-in-a-new-tab')}
-		>
-			<ClayIcon symbol="shortcut" />
-		</ClayLink>
-	);
-};
 
 const DetailedAssetUsageModal: React.FC<IDetailedAssetUsageModalProps> = ({
 	item,
@@ -153,9 +102,9 @@ const DetailedAssetUsageModal: React.FC<IDetailedAssetUsageModalProps> = ({
 							tableCell: [
 								{
 									component: ({itemData}) => (
-										<ViewButton
-											item={item}
-											itemData={itemData}
+										<AssetUsageViewButton
+											title={item.name}
+											url={itemData.url}
 										/>
 									),
 									name: 'viewButton',
